@@ -13,8 +13,8 @@ contents = file_.read()
 data_url = base64.b64encode(contents).decode("utf-8")
 file_.close()
 
-#with open("./models/random_forest_model.pkl",'rb') as file:
-    #loaded_model=pickle.load(file)
+with open("./models/Assaults.pkl",'rb') as file:
+    loaded_model=pickle.load(file)
 
 def get_user_input(tab):
     if (tab==1):
@@ -73,28 +73,12 @@ def get_user_input(tab):
     else:
         st.error("Error selecting tab")
 
-def main():
-    st.set_page_config("Crime Location Predictor",
-                        layout="wide",
-                        initial_sidebar_state="expanded"
-                        )
-    st.sidebar.title("Crime Location Predictor")
-    st.sidebar.image("./content/OPS.webp")
-    c2, c3 = st.columns([3, 2])
-    c2.video("https://youtu.be/3boD9s0oDck")
-    c3.markdown(
-    f'<img src="data:image/gif;base64,{data_url}" alt="OPS gif">',
-    unsafe_allow_html=True,
-    )
-    st.title("Crime Location Predictor")
-
-    with st.expander("About the app"):
-        st.write("Crime Location Predictor")
+def run_predictor():
     tab1, tab2, tab3 = st.tabs(["Assaults", "Theft Under 5000", "Bike Theft"])
-
     with tab1:
+        st.sidebar.subheader("Assaults Input")
         user_input = get_user_input(1)
-        if st.button('Predict'):
+        if st.sidebar.button('Predict'):
             # Convert user input to DataFrame if your model expects it
             user_input_df = pd.DataFrame([user_input])
             
@@ -107,6 +91,25 @@ def main():
 
     with tab3:
         user_input = get_user_input(3)
+
+def main():
+    st.set_page_config("Crime Location Predictor",
+                        layout="wide",
+                        initial_sidebar_state="expanded"
+                        )
+    st.sidebar.title("Crime Location Predictor")
+    st.sidebar.image("./content/OPS.webp", width=100)
+    c2, c3 = st.columns([3, 2])
+    c2.video("https://youtu.be/3boD9s0oDck")
+    c3.markdown(
+    f'<img src="data:image/gif;base64,{data_url}" alt="OPS gif">',
+    unsafe_allow_html=True,
+    )
+    st.title("Crime Location Predictor")
+
+    with st.expander("About the app"):
+        st.write("Crime Location Predictor")
+    #run_predictor()
 
 if __name__ == '__main__':
     main()
