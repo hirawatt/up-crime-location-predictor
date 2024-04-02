@@ -5,6 +5,13 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import sklearn
 import pickle
+import base64
+
+# GIF File
+file_ = open("./content/OPS.gif", "rb")
+contents = file_.read()
+data_url = base64.b64encode(contents).decode("utf-8")
+file_.close()
 
 #with open("./models/random_forest_model.pkl",'rb') as file:
     #loaded_model=pickle.load(file)
@@ -73,9 +80,12 @@ def main():
                         )
     st.sidebar.title("Crime Location Predictor")
     st.sidebar.image("./content/OPS.webp")
-    c1, c2, c3 = st.columns([2, 3, 1])
+    c2, c3 = st.columns([3, 2])
     c2.video("https://youtu.be/3boD9s0oDck")
-    c3.image("./content/OPS.gif", width=150)
+    c3.markdown(
+    f'<img src="data:image/gif;base64,{data_url}" alt="OPS gif">',
+    unsafe_allow_html=True,
+    )
     st.title("Crime Location Predictor")
 
     with st.expander("About the app"):
