@@ -5,14 +5,11 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import sklearn
 import pickle
-import base64
 
-# GIF File
-file_ = open("./content/OPS.gif", "rb")
-contents = file_.read()
-data_url = base64.b64encode(contents).decode("utf-8")
-file_.close()
-
+st.set_page_config("Crime Location Predictor",
+                    layout="wide",
+                    initial_sidebar_state="expanded"
+                    )
 try:
     with open("./models/Assaults.pkl",'rb') as file:
         loaded_model=pickle.load(file)
@@ -102,10 +99,6 @@ def run_predictor():
         st.info("Unified Map of All Data")
 
 def main():
-    st.set_page_config("Crime Location Predictor",
-                        layout="wide",
-                        initial_sidebar_state="expanded"
-                        )
     st.sidebar.title("Crime Location Predictor")
     st.sidebar.image("./content/OPS.webp", width=100)
     c2, c3 = st.columns([18, 2])
