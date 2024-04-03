@@ -80,20 +80,27 @@ def run_predictor():
         st.sidebar.subheader("Assaults Input")
         user_input = get_user_input(1)
         if st.sidebar.button('Predict'):
-            # Convert user input to DataFrame if your model expects it
             user_input_df = pd.DataFrame([user_input])
-            
-            # Use the pipeline to preprocess input and make prediction
             prediction = loaded_model.predict(user_input_df)
             st.write(f'Prediction: {prediction}')
     
     elif crime_type=="Theft Under 5000":
         distab1, distab2, distab3 = True, False, True
+        st.sidebar.subheader("Theft Under 5000 Input")
         user_input = get_user_input(2)
+        if st.sidebar.button('Predict'):
+            user_input_df = pd.DataFrame([user_input])
+            prediction = loaded_model.predict(user_input_df)
+            st.write(f'Prediction: {prediction}')
 
     elif crime_type=="Bike Theft":
         distab1, distab2, distab3 = True, True, False
+        st.sidebar.subheader("Bike Theft Input")
         user_input = get_user_input(3)
+        if st.sidebar.button('Predict'):
+            user_input_df = pd.DataFrame([user_input])
+            prediction = loaded_model.predict(user_input_df)
+            st.write(f'Prediction: {prediction}')
     
     elif crime_type=="All":
         st.info("Unified Map of All Data")
