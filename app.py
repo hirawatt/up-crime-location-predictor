@@ -10,11 +10,6 @@ st.set_page_config("Crime Location Predictor",
                     layout="wide",
                     initial_sidebar_state="expanded"
                     )
-try:
-    with open("./models/Assaults.pkl",'rb') as file:
-        loaded_model=pickle.load(file)
-except:
-    st.info("Running on cloud. Unable to run models")
 
 def get_user_input(tab):
     if (tab==1):
@@ -77,6 +72,12 @@ def run_predictor():
     crime_type = st.radio("Select Crime Type", ["Assaults", "Theft Under 5000", "Bike Theft", "All"], horizontal=True)
     if crime_type=="Assaults":
         distab1, distab2, distab3 = False, True, True
+        try:
+            with open("./models/Assaults.pkl",'rb') as file:
+                loaded_model=pickle.load(file)
+        except:
+            st.info("Running on cloud. Unable to run models")
+
         st.sidebar.subheader("Assaults Input")
         user_input = get_user_input(1)
         if st.sidebar.button('Predict'):
@@ -86,6 +87,12 @@ def run_predictor():
     
     elif crime_type=="Theft Under 5000":
         distab1, distab2, distab3 = True, False, True
+        try:
+            with open("./models/Theft_Under5000.pkl",'rb') as file:
+                loaded_model=pickle.load(file)
+        except:
+            st.info("Running on cloud. Unable to run models")
+
         st.sidebar.subheader("Theft Under 5000 Input")
         user_input = get_user_input(2)
         if st.sidebar.button('Predict'):
@@ -95,6 +102,12 @@ def run_predictor():
 
     elif crime_type=="Bike Theft":
         distab1, distab2, distab3 = True, True, False
+        try:
+            with open("./models/Bike_theft_new.pkl",'rb') as file:
+                loaded_model=pickle.load(file)
+        except:
+            st.info("Running on cloud. Unable to run models")
+
         st.sidebar.subheader("Bike Theft Input")
         user_input = get_user_input(3)
         if st.sidebar.button('Predict'):
